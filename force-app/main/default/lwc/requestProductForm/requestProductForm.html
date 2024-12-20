@@ -1,0 +1,56 @@
+<!-- requestProductForm.html -->
+<template>
+    <lightning-card title="Create Request Product" icon-name="standard:opportunity">
+        <div class="slds-m-around_medium">
+            <lightning-record-edit-form
+                object-api-name="Request_Product__c"
+                onsuccess={handleSuccess}
+                onerror={handleError}
+            >
+                <!-- Employee field on the first line -->
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <label>Employee</label>
+                        <lightning-input-field field-name="Employee__c" required></lightning-input-field>
+                    </div>
+                </div>
+
+                <!-- Select Product field on the same line -->
+                <div class="slds-grid slds-gutters">
+                    <div class="slds-col">
+                        <label>Select Product</label>
+                        <lightning-input-field field-name="Select_Product__c" variant="label-hidden" onchange={handleProductChange}></lightning-input-field>
+                    </div>
+                </div>
+
+                <!-- Conditionally render the product count and list -->
+                <template if:true={selectedProducts.length}>
+                    <template if:true={recordCount}>
+                        <p>Available Products: {recordCount}</p>
+                        <ul>
+                            <template for:each={uniqueAvailableProducts} for:item="product">
+                                <li key={product}>{product}</li>
+                            </template>
+                        </ul>
+                    </template>
+                    <template if:false={recordCount}>
+                        <p>No products available</p>
+                    </template>
+                </template>
+
+                <div class="slds-m-top_medium slds-text-align_right">
+                    <!-- Move the "Submit" button to the right -->
+                    <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit}></lightning-button>
+                </div>
+            </lightning-record-edit-form>
+            
+            <div if:true={recordCreated}>
+                <p>Request Product created successfully!</p>
+            </div>
+
+            <div if:true={error}>
+                <p>Error: {error}</p>
+            </div>
+        </div>
+    </lightning-card>
+</template>

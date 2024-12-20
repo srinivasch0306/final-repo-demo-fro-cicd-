@@ -1,0 +1,29 @@
+<template>
+    <lightning-card title="Create Time Sheet">
+        <div class="slds-p-around_medium">
+            <lightning-combobox
+                name="employee"
+                label="Select Employee"
+                value={employeeId}
+                options={employeeOptions}
+                onchange={handleEmployeeChange}>
+            </lightning-combobox>
+            <lightning-combobox
+                name="workItem"
+                label="Select Work Item (Master)"
+                value={workItemId}
+                options={workItemOptions}
+                onchange={handleWorkItemChange}>
+            </lightning-combobox>
+            <lightning-input type="week" label="Select Week" onchange={handleWeekChange}></lightning-input>
+            <div class="slds-grid slds-gutters">
+                <template for:each={days} for:item="day">
+                    <div key={day} class="slds-col">
+                        <lightning-input type="number" label={day} data-day={day} value={hours} onchange={handleHourChange}></lightning-input>
+                    </div>
+                </template>
+            </div>
+            <lightning-button label="Create Timesheet" onclick={createTimesheet}></lightning-button>
+        </div>
+    </lightning-card>
+</template>

@@ -1,0 +1,20 @@
+<!-- requestApprovalForm.html -->
+<template>
+    <lightning-card title="Request Approval" icon-name="standard:opportunity">
+        <div class="slds-m-around_medium">
+            <lightning-record-edit-form object-api-name="Request_Product__c">
+                <!-- Select_Product__c Multi-Picklist -->
+                <lightning-input-field field-name="Select_Product__c" variant="label-hidden" onchange={handleProductChange}></lightning-input-field>
+
+                <!-- Employee__c Lookup Field -->
+                <lightning-input-field field-name="Employee__c" variant="label-hidden"></lightning-input-field>
+
+                <!-- Available Products Display -->
+                <c-available-products-display record-id={recordId}></c-available-products-display>
+
+                <!-- Submit Button -->
+                <lightning-button variant="brand" label="Submit" title="Submit" onclick={handleSubmit}></lightning-button>
+            </lightning-record-edit-form>
+        </div>
+    </lightning-card>
+</template>

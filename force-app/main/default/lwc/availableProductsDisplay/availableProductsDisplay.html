@@ -1,0 +1,25 @@
+<template>
+    <lightning-card title="Available Products" icon-name="custom:custom27">
+        <template if:true={availableProducts}>
+            <ul>
+                <template for:each={availableProducts} for:item="product">
+                    <li key={product}>{product}</li>
+                </template>
+            </ul>
+        </template>
+        <template if:false={availableProducts}>
+            No available products.
+        </template>
+
+        <lightning-dual-listbox
+            label="Select Products"
+            source-label="Available Products"
+            selected-label="Selected Products"
+            options={availableProductsOptions}
+            value={selectedValues}
+            onchange={handleMultiPicklistChange}>
+        </lightning-dual-listbox>
+
+        <lightning-button label="Save" onclick={handleSave} class="slds-m-top_small" variant="brand"></lightning-button>
+    </lightning-card>
+</template>

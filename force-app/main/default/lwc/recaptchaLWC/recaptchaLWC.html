@@ -1,0 +1,12 @@
+<template>
+    <!-- Styled Checkbox -->
+    <div class="styled-checkbox-container">
+        <lightning-input type="checkbox" label="I'm not a robot" onchange={handleCheckboxChange} class="styled-checkbox"></lightning-input>
+    </div>
+
+    <!-- reCAPTCHA Container -->
+    <div class="recaptcha-container" lwc:dom="manual"></div>
+
+    <!-- Submit Button -->
+    <lightning-button label="Submit" onclick={handleSubmit} class="slds-m-top_medium"></lightning-button>
+</template>

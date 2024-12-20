@@ -1,0 +1,42 @@
+<template>
+    <div>
+        <lightning-button label="Clone Button" onclick={handleClick}> </lightning-button>
+    </div>
+    <div></div>
+    <template if:true={isTrue}>
+        
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <p>Modal/Popup in Lightning Web Component (LWC) Demo</p>
+                  
+                        <lightning-combobox
+                        name="objectName"
+                        label="Select an Object"
+                        placeholder="Select an Object"
+                        options={objectOptions}
+                        value={selectedObject}
+                        >
+                    </lightning-combobox>
+                    <div slot="footer">
+                        <lightning-button variant="neutral" label="Next" onclick={clickNext}></lightning-button>
+                     
+                    
+                        <lightning-button variant="neutral" label="Cancel" onclick={closeModal}></lightning-button>
+                     </div>
+                
+                </div>
+                </header>
+
+
+
+            </div>
+        </section>
+    
+
+
+      
+        
+    </template>
+</template>
