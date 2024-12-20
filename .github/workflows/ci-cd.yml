@@ -26,7 +26,8 @@ jobs:
 
       - script: |
           echo "Authenticating to DevOrg using web login..."
-          sfdx auth:web:login --setalias dev --instanceurl taruavocette4-dev-ed.develop.my.salesforce.com
+          sfdx auth:web:login --setalias dev --instanceurl sfdx auth:web:login --setalias uat --instanceurl https://taruavocette4-dev-ed.develop.my.salesforce.com
+
 
         displayName: 'Authenticate to DevOrg'
 
