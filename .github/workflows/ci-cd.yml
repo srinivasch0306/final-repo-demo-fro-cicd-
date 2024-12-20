@@ -1,0 +1,54 @@
+
+
+
+
+trigger:
+  branches:
+    include:
+      - main
+
+jobs:
+  - job: deploy
+    displayName: 'Deploy to Salesforce Orgs'
+    pool:
+      name: 'mess'  # Use your self-hosted agent pool
+
+    steps:
+      - checkout: self
+        displayName: 'Checkout repository'
+
+      - script: |
+          echo "Adding Salesforce CLI to PATH..."
+          echo "##vso[task.setvariable variable=PATH]\"C:\Program Files\Salesforce CLI\bin\";$(PATH)"
+          echo "Updated PATH: $(PATH)"
+          sfdx --version  # Verify Salesforce CLI is available
+        displayName: 'Set Salesforce CLI Path'
+
+      - script: |
+          echo "Authenticating to DevOrg using web login..."
+          sfdx auth:web:login --setalias dev --instanceurl https://taruitsolutions25-dev-ed.develop.my.salesforce.com/
+        displayName: 'Authenticate to DevOrg'
+
+      # Step 4: Authenticate to UatOrg using web login
+      - script: |
+          echo "Authenticating to UatOrg using web login..."
+          sfdx auth:web:login --setalias uat --instanceurl https://taruitsolutions-6d-dev-ed.develop.my.salesforce.com/
+        displayName: 'Authenticate to UatOrg'
+
+      # Step 5: Deploy to UatOrg using sfdx command (with path to Salesforce CLI specified)
+      - script: |
+          echo "Deploying to UatOrg..."
+          sf project deploy start --source-dir force-app --target-org uat
+        displayName: 'Deploy to UatOrg'
+
+      # Optional Step: Commit and push changes
+      - script: |
+          echo "Committing and pushing changes..."
+          git config --local user.email "your-email@example.com"
+          git config --local user.name "Your Name"
+          git add .
+          git commit -m "Deploy changes to both DevOrg and UatOrg"
+          git push
+        env:
+          GITHUB_TOKEN: $(GITHUB_TOKEN)
+        displayName: 'Commit and push changes'
