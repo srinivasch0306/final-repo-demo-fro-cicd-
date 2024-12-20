@@ -31,9 +31,10 @@ jobs:
           sfdx auth:web:login --setalias uat --instanceurl https://taruitsolutions-6d-dev-ed.develop.my.salesforce.com/
         displayName: 'Authenticate to UatOrg'
 
-      # Step 5: Deploy to UatOrg using sfdx command (with path to Salesforce CLI specified)
+      # Step 5: Deploy to UatOrg using sfdx command (with increased memory for Node.js)
       - script: |
           echo "Deploying to UatOrg..."
+          SET NODE_OPTIONS=--max-old-space-size=4096
           sf project deploy start --source-dir force-app --target-org uat
         displayName: 'Deploy to UatOrg'
 
